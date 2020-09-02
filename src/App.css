@@ -1,0 +1,19 @@
+body {
+  background-image: url('./img/bg-img.jpg');
+  background-size: cover;
+}
+
+.form-control {
+  height: 50px !important;
+}
+
+.line-through {
+  text-decoration: line-through;
+}
+
+span {
+  font-size: 20px;
+  font-family: cursive;
+  color: #455166;
+  text-transform: capitalize;
+}
