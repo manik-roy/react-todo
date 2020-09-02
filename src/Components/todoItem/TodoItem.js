@@ -4,7 +4,7 @@ const TodoItem = (props) => {
   const { name, isActive, id } = props.todo;
   return (
     <div className="list-group-item align-items-center d-flex justify-content-between border-bottom shadow my-1" >
-      <span className={isActive ? '' : 'line-through'} >{name}</span>
+      <span className={isActive ? 'text-success' : 'line-through'} >{name} ( {JSON.stringify(isActive)}) </span>
       <div className="buttons-group my-2">
         <button
           onClick={() => props.doneTodo(id)}

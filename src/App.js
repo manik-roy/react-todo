@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     const items = localStorage.getItem('todos');
-    items && setTodos(JSON.parse(items))
+    items && setTodos(JSON.parse(items));
   }, [])
 
   // add new todo
@@ -24,6 +24,7 @@ function App() {
     const newTodos = [...todos, createTodo];
     setTodos(newTodos)
     localStorage.setItem('todos', JSON.stringify(newTodos))
+    setNewTodo('');
   }
 
   // remove todos
@@ -40,7 +41,7 @@ function App() {
         todo.isActive = false;
       }
       return todo;
-    })
+    });
     localStorage.setItem('todos', JSON.stringify(newTodos));
     setTodos(newTodos)
   }
@@ -49,7 +50,7 @@ function App() {
     <div className="col-md-4 mx-auto px-2">
       <div className="todo justify-content-center mt-5">
         <div class="input-group mb-2 mr-sm-2">
-          <input type="text" name="todo" value={newTodo} 
+          <input type="text" name="todo" value={newTodo}
             onChange={(e) => setNewTodo(e.target.value)} className="form-control" />
           <div class="input-group-append">
             <button className="btn btn-secondary" onClick={addTodo}>Add todo</button>
