@@ -9,6 +9,10 @@ function App() {
 
   const [todos, setTodos] = useState([]);
 
+  const [filterItem, setFilterItem] = useState([]);
+
+  const [category, setCategory] = useState('all');
+
   useEffect(() => {
     const items = localStorage.getItem('todos');
     items && setTodos(JSON.parse(items));
@@ -46,6 +50,23 @@ function App() {
     setTodos(newTodos)
   }
 
+  // filter todo with category 
+
+  useEffect(() => {
+    if (category === 'all') {
+      return setFilterItem([...todos])
+    }
+    if (category === 'done') {
+      const currentItems = todos.filter(item => item.isActive !== true)
+      return setFilterItem([...currentItems])
+    }
+    if (category === 'active') {
+      const currentItems = todos.filter(item => item.isActive === true)
+      return setFilterItem([...currentItems])
+    }
+    console.log(todos);
+  }, [category, todos])
+
   return (
     <div className="col-md-4 mx-auto px-2">
       <div className="todo justify-content-center mt-5">
@@ -57,12 +78,31 @@ function App() {
           </div>
         </div>
       </div>
-      <div className="todo-container mt-4">
-        <ul className="list-group">
-          {todos.map(todo => <TodoItem todo={todo} removeTodo={removeTodo} doneTodo={doneTodo} />)}
-        </ul>
+      <div className="buttons-group col text-center">
+        <button
+          onClick={() => setCategory('all')}
+          className="btn btn-md btn-dark mr-2"> ALL
+        </button>
+        <button
+          onClick={() => setCategory('active')}
+          className="btn btn-md btn-success mr-2"> Active
+        </button>
+        <button
+          onClick={() => setCategory('done')}
+          className="btn btn-md btn-info mr-2">Done
+        </button>
+        <button
+          className="btn btn-md btn-danger  ">Clear
+        </button>
+
       </div>
-    </div>
+      <div className="todo-container mt-4">
+        {filterItem.length === 0 ? <p className="text-center text-success"> there is no todo item </p> :
+          <ul className="list-group">
+            {filterItem.map(todo => <TodoItem todo={todo} removeTodo={removeTodo} doneTodo={doneTodo} />)}
+          </ul>}
+      </div>
+    </div >
   );
 }
 
