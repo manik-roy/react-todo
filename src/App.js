@@ -19,7 +19,7 @@ function App() {
     const createTodo = {
       name: newTodo,
       isActive: true,
-      id: todos.length + 1
+      id: new Date().getTime() + Math.random(),
     }
     const newTodos = [...todos, createTodo];
     setTodos(newTodos)
@@ -38,7 +38,7 @@ function App() {
   const doneTodo = id => {
     const newTodos = todos.map(todo => {
       if (todo.id === id) {
-        todo.isActive = false;
+        todo.isActive = !todo.isActive;
       }
       return todo;
     });
