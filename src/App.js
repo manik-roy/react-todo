@@ -67,13 +67,20 @@ function App() {
     console.log(todos);
   }, [category, todos])
 
+  // clear all todos 
+
+  const clearTodo = () => {
+    setTodos([])
+    localStorage.setItem('todos', JSON.stringify([]))
+  }
+
   return (
     <div className="col-md-4 mx-auto px-2">
       <div className="todo justify-content-center mt-5">
-        <div class="input-group mb-2 mr-sm-2">
+        <div className="input-group mb-2 mr-sm-2">
           <input type="text" name="todo" value={newTodo}
             onChange={(e) => setNewTodo(e.target.value)} className="form-control" />
-          <div class="input-group-append">
+          <div className="input-group-append">
             <button className="btn btn-secondary" onClick={addTodo}>Add todo</button>
           </div>
         </div>
@@ -81,25 +88,26 @@ function App() {
       <div className="buttons-group col text-center">
         <button
           onClick={() => setCategory('all')}
-          className="btn btn-md btn-dark mr-2"> ALL
+          className={`btn btn-md shadow mr-2 ${category === 'all' ? 'text-white' : ''}`}> ALL
         </button>
         <button
           onClick={() => setCategory('active')}
-          className="btn btn-md btn-success mr-2"> Active
+          className={`btn btn-md shadow mr-2 ${category === 'active' ? 'text-white' : ''}`}> Active
         </button>
         <button
           onClick={() => setCategory('done')}
-          className="btn btn-md btn-info mr-2">Done
+          className={`btn btn-md shadow mr-2 ${category === 'done' ? 'text-white' : ''}`}>Done
         </button>
         <button
-          className="btn btn-md btn-danger  ">Clear
+          onClick={clearTodo}
+          className="btn btn-md shadow ">Clear
         </button>
 
       </div>
       <div className="todo-container mt-4">
-        {filterItem.length === 0 ? <p className="text-center text-success"> there is no todo item </p> :
+        {filterItem.length === 0 ? <p className="text-center text-white"> there is no todo items in <span className="font-weight-bold border-bottom" >{category}</span> categories </p> :
           <ul className="list-group">
-            {filterItem.map(todo => <TodoItem todo={todo} removeTodo={removeTodo} doneTodo={doneTodo} />)}
+            {filterItem.map(todo => <TodoItem todo={todo} key={todo.id} removeTodo={removeTodo} doneTodo={doneTodo} />)}
           </ul>}
       </div>
     </div >

@@ -18,3 +18,7 @@ span {
   color: #455166;
   text-transform: capitalize;
 }
+
+.btn-md {
+  cursor: pointer !important;
+}
